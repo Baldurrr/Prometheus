@@ -14,6 +14,7 @@ echo " |  \| | ___   __| | ___   _ _ __  ___| |_ __ _| | | ___ _ __  #"
 echo " |     |/ _ \ / _  |/ _ \ | |  _ \/ __| __/ _  | | |/ _ \  __| #"
 echo " | |\  | (_) | (_| |  __/ | | | | \__ \ || (_| | | |  __/ |    #"
 echo " |_| \_|\___/ \__,_|\___| |_|_| |_|___/\__\__,_|_|_|\___|_|    #"
+echo "                                                               #"
 echo "################################################################${RESET}"
 
 echo -e "Creating group prometheus \n"
@@ -66,4 +67,3 @@ systemctl enable node_exporter
 # mv iptables.txt /etc/network/if-pre-up.d/iptables
 # chmod +x /etc/network/if-pre-up.d/iptables
 echo "End of configuration"
-
