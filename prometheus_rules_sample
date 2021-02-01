@@ -1,0 +1,51 @@
+expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 25
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Mémoire dispo > 25% (instance {{ $labels.instance }})"
+      description: "Mémoire se remplit (< 25% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+##################
+
+- alert: HostUnusualNetworkThroughputOut
+    expr: sum by (instance) (rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 20
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Host unusual network throughput out (instance {{ $labels.instance }})"
+      description: "Host network interfaces are probably sending too much data (> 10 Mo/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+##################
+
+- alert: HighCpuLoad
+    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High CPU load (instance {{ $labels.instance }})"
+      description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+##################
+
+ - alert: HostSystemdServiceCrashed
+    expr: node_systemd_unit_state{state="failed"} == 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Host SystemD service crashed (instance {{ $labels.instance }})"
+      description: "SystemD service crashed\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+##################
+
+- alert: ContainerKilled
+    expr: time() - container_last_seen > 60
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Container killed (instance {{ $labels.instance }})"
+      description: "A container has disappeared\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
