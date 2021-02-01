@@ -1,4 +1,20 @@
 #!/bin/sh
+echo -e "\n"
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+BLUE=`tput setaf 4`
+YELLOW=`tput setaf 3`
+WHITE=`tput setaf 7`
+RESET=`tput sgr0`
+
+echo "${GREEN}################################################################"
+echo "  _   _           _        _           _        _ _            #"
+echo " | \ | |         | |      (_)         | |      | | |           #"
+echo " |  \| | ___   __| | ___   _ _ __  ___| |_ __ _| | | ___ _ __  #"
+echo " |     |/ _ \ / _  |/ _ \ | |  _ \/ __| __/ _  | | |/ _ \  __| #"
+echo " | |\  | (_) | (_| |  __/ | | | | \__ \ || (_| | | |  __/ |    #"
+echo " |_| \_|\___/ \__,_|\___| |_|_| |_|___/\__\__,_|_|_|\___|_|    #"
+echo "################################################################${RESET}"
 
 echo -e "Creating group prometheus \n"
 groupadd --system prometheus
@@ -23,17 +39,14 @@ Description=Prometheus
 Documentation=https://github.com/prometheus/node_exporter
 Wants=network-online.target
 After=network-online.target
-
 [Service]
 Type=simple
 User=prometheus
 Group=prometheus
 ExecReload=/bin/kill -HUP $MAINPID
 ExecStart=/usr/local/bin/node_exporter
-
 [Install]
 WantedBy=multi-user.target
-
 EOF
 
 echo -e "Reloading daemons"
