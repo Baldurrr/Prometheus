@@ -26,6 +26,7 @@ useradd -s /sbin/nologin --system -g promtail promtail
 
 wget https://github.com/grafana/loki/releases/download/v2.3.0/promtail-linux-amd64.zip -P /tmp
 cd /tmp
+apt install unzip
 unzip promtail-linux-amd64.zip
 rm promtail-linux-amd64.zip && mv promtail-linux-amd64 /usr/local/bin/promtail
 
