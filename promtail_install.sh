@@ -87,6 +87,9 @@ echo "Enabling promtail service"
 systemctl enable promtail.service
 echo "Starting promtail service"
 systemctl start promtail.service
+
+sleep 3
+
 echo "Status of promtail service"
 systemctl status promtail.service
 
